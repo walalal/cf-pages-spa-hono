@@ -18,7 +18,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "deploy:wrangler": "npm run build && wrangler pages deploy ./dist",
-    "preview:wrangler": "npm run build && wrangler pages dev ./dist",
+    "preview:wrangler": "npm run build && wrangler pages dev ./dist --ip 0.0.0.0",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0"
     
   },
