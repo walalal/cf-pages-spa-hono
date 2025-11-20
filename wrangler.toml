@@ -1,0 +1,12 @@
+name = "cf-pages-spa-hono"
+pages_build_output_dir = "./dist"
+compatibility_date = "2024-04-22"
+# compatibility_flags = [ "nodejs_compat" ]
+
+[vars]
+BLOG_USERNAME="admin"
+BLOG_PASSWORD="123456"
+
+[[kv_namespaces]]
+binding = "blog"
+id = "49618aedf53541fe924c656cdb360f9d"
