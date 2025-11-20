@@ -1,0 +1,18 @@
+{
+  "_vendor-BavYwjO1.js": {
+    "file": "static/vendor-BavYwjO1.js",
+    "name": "vendor"
+  },
+  "src/client.tsx": {
+    "file": "static/client-D3HoN9LB.js",
+    "name": "client",
+    "src": "src/client.tsx",
+    "isEntry": true,
+    "imports": [
+      "_vendor-BavYwjO1.js"
+    ],
+    "css": [
+      "static/client-DIRPg4nK.css"
+    ]
+  }
+}

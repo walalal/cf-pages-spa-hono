@@ -1,21 +1,34 @@
-import React from "react"
-import { renderToString } from 'react-dom/server'
-import { App } from './App'
+import { reactRenderer } from '@hono/react-renderer'
+import { hydrateRoot } from 'react-dom/client'
+import App from './view/App'
+import { ViewData } from './global'
 
-export function renderPage(name: string) {
-  const html = renderToString(<App name={name} />)
+const views:Map<string, React.FC<any>> = new Map()
 
-  return `
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <meta charset="utf-8"/>
-        <title>Hono React SSR</title>
-      </head>
-      <body>
-        <div id="root">${html}</div>
-        <script type="module" src="/client.js"></script>
-      </body>
-    </html>
-  `
+export default function Empty() {
+  return <></>
+}
+
+export function getViewByName(name: string):React.FC<any> {
+    const cmp = views.get(name)
+    if (cmp === undefined) {
+      return Empty
+    } else {
+      return cmp
+    }
+}
+
+export function storeViewByName(name: string, item: React.FC<any>):void {
+    views.set(name, item)
+}
+
+export const Renderer = reactRenderer(App, {
+  docType: true
+})
+
+export const viewRenderer = (name:string, view: ViewData) => {
+  const Comp = getViewByName(name)
+  hydrateRoot(document, <App view={view} manifest={view.meta.manifest}>
+    <Comp {...view.props} />
+  </App>);
 }

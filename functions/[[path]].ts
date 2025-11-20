@@ -1,13 +1,28 @@
 import { Hono } from "hono"
-import { renderPage } from "../src/renderer"
+import { renderer } from "../src/renderer"
+import initView from '../src/view'
+import { LanguageDetector, Translatori18n, ViewRenderer } from '../src/middleware'
+import createBlogServer from '../src/blog'
+import { getPath } from '../src/locales'
 import { handle } from "hono/cloudflare-pages";
 
-const app = new Hono()
+initView()
+const app = new Hono({ getPath })
 
-app.get("*", c => {
-  const url = new URL(c.req.url)
-  const name = url.searchParams.get("name") ?? "World"
-  return c.html(renderPage(name))
+app.use(LanguageDetector)
+app.use(Translatori18n)
+app.use(Renderer)
+app.use(ViewRenderer)
+
+app.get('/', (c) => {
+  return c.view('hello', {
+    meta: {
+      title: 'Honojs demo with react SSR and shadcn UI.',
+    },
+    props: {
+      tp: 'index'
+    }
+  })
 })
 
 export const onRequest = handle(app)
