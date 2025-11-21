@@ -14,7 +14,7 @@
     "#backend/*": "./backend/*"
   },
   "scripts": {
-    "dev": "echo \"export default false\" > ./src/config/is_prod.ts && vite --host",
+    "dev": "echo \"export default true\" > ./src/config/is_prod.ts && vite --host",
     "client": "vite --mode client",
     "build": "vite build --mode client && cp -f ./dist/.vite/manifest.json ./src/lib/manifest.json && vite build",
     "preview": "wrangler pages dev dist --ip 0.0.0.0",
